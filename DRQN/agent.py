@@ -45,7 +45,10 @@ class Agent:
         
 
     def learn(self):
-        experiences = random.sample(self.memory, self.bs)
+#         experiences = random.sample(self.memory, self.bs)
+        idx = random.sample(range(len(self.memory)),self.bs)
+        idx.sort()
+        experiences = [self.memory[i] for i in idx]
         states = torch.from_numpy(np.vstack([e[0] for e in experiences])).float().to(self.device)
 #         print(states.shape)
         actions = torch.from_numpy(np.vstack([e[1] for e in experiences])).long().to(self.device)
